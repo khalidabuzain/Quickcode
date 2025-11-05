@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ENT + Chest Summary Generator (Tabbed Compact)</title>
+<style>
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f7f9;
+  color: #1f2937;
+  margin: 20px;
+}
+h2 { text-align: center; color: #1e3a8a; margin-bottom: 20px; }
+
+/* Tabs */
+.tab {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+.tab button {
+  background-color: #e0e7ff;
+  border: none;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-weight: bold;
+  margin: 0 4px;
+  border-radius: 10px 10px 0 0;
+}
+.tab button.active { background-color: #2563eb; color: white; }
+.tab button:hover { background-color: #c7d2fe; }
+
+/* Tab content */
+.tabcontent {
+  display: none;
+  border-radius: 0 10px 10px 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  max-width: 750px;
+  margin: 0 auto 20px auto;
+  padding: 15px;
+}
+
+/* Sections colors */
+.ear { background-color: #ecfdf5; border-left: 6px solid #10b981; }
+.throat { background-color: #eef2ff; border-left: 6px solid #6366f1; }
+.chest { background-color: #fff7ed; border-left: 6px solid #f59e0b; }
+
+/* Options grid */
+.options-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 5px 15px;
+}
+
+label {
+  display: flex;
+  align-items: center;
+  margin: 5px 0;
+}
+input[type=checkbox] {
+  margin-right: 8px;
+  transform: scale(1.2);
+  accent-color: #10b981;
+}
+
+/* Controls */
+.controls {
+  text-align: center;
+  margin-top: 15px;
+}
+button {
+  padding: 10px 16px;
+  margin: 5px 8px 10px 0;
+  border: none;
+  border-radius: 8px;
+  background-color: #2563eb;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+}
+button:hover { background-color: #1d4ed8; }
+
+#summary {
+  width: 100%;
+  height: 220px;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+  background-color: #f8fafc;
+  color: #1e3a8a;
+  white-space: pre-wrap;
+  resize: none;
+}
+.toggle { text-align: center; margin-top: 10px; }
+</style>
+</head>
+<body>
+
+<h2>ENT + Chest Examination</h2>
+
+<div class="tab">
+  <button class="tablinks active" onclick="openTab(event,'Ear')">👂 Ear</button>
+  <button class="tablinks" onclick="openTab(event,'Throat')">👄 Throat</button>
+  <button class="tablinks" onclick="openTab(event,'Chest')">🫁 Chest</button>
+</div>
+
+<!-- Ear Tab -->
+<div id="Ear" class="tabcontent ear" style="display:block;">
+  <h3>Right Ear</h3>
+  <div class="options-grid">
+    <label><input type="checkbox" id="rCanalClear"> Canal clear</label>
+    <label><input type="checkbox" id="rErythema"> Erythematous canal</label>
+    <label><input type="checkbox" id="rWax"> Wax/debris/discharge</label>
+    <label><input type="checkbox" id="rTMclear"> TM clear</label>
+    <label><input type="checkbox" id="rTMinflamed"> TM inflamed</label>
+    <label><input type="checkbox" id="rMastoidTender"> Mastoid tenderness</label>
+  </div>
+  <h3>Left Ear</h3>
+  <div class="options-grid">
+    <label><input type="checkbox" id="lCanalClear"> Canal clear</label>
+    <label><input type="checkbox" id="lErythema"> Erythematous canal</label>
+    <label><input type="checkbox" id="lWax"> Wax/debris/discharge</label>
+    <label><input type="checkbox" id="lTMclear"> TM clear</label>
+    <label><input type="checkbox" id="lTMinflamed"> TM inflamed</label>
+    <label><input type="checkbox" id="lMastoidTender"> Mastoid tenderness</label>
+  </div>
+</div>
+
+<!-- Throat Tab -->
+<div id="Throat" class="tabcontent throat">
+  <div class="options-grid">
+    <label><input type="checkbox" id="throatNormal"> Normal looking throat</label>
+    <label><input type="checkbox" id="throatInflamed"> Inflamed throat</label>
+    <label><input type="checkbox" id="throatExudate"> Covered in exudate</label>
+    <label><input type="checkbox" id="tonsilsNormal"> Tonsils normal</label>
+    <label><input type="checkbox" id="tonsilsLargeRight"> Right tonsil large/inflamed</label>
+    <label><input type="checkbox" id="tonsilsLargeLeft"> Left tonsil large/inflamed</label>
+    <label><input type="checkbox" id="tonsilsExudateRight"> Right tonsil exudate</label>
+    <label><input type="checkbox" id="tonsilsExudateLeft"> Left tonsil exudate</label>
+    <label><input type="checkbox" id="mouthOpen"> Can open mouth fully</label>
+    <label><input type="checkbox" id="speakFull"> Can speak full sentences</label>
+    <label><input type="checkbox" id="noLN"> No cervical lymphadenopathy</label>
+  </div>
+</div>
+
+<!-- Chest Tab -->
+<div id="Chest" class="tabcontent chest">
+  <div class="options-grid">
+    <label><input type="checkbox" id="noDistress"> Not in respiratory distress</label>
+    <label><input type="checkbox" id="goodAirEntry"> Good air entry bilaterally</label>
+    <label><input type="checkbox" id="noAddedSound"> No added sounds</label>
+    <label><input type="checkbox" id="wheeze"> Wheeze present</label>
+    <label><input type="checkbox" id="crackles"> Crackles present</label>
+    <label><input type="checkbox" id="cracklesCough"> Crackles with cough</label>
+  </div>
+</div>
+
+<div class="toggle">
+<label><input type="checkbox" id="showAbnormal"> Show only abnormal findings</label>
+</div>
+
+<div class="controls">
+<button onclick="generateSummary()">Generate Summary</button>
+<button onclick="clearAll()">Clear</button>
+<button onclick="copySummary()">Copy</button>
+</div>
+
+<textarea id="summary" readonly placeholder="Generated summary will appear here..."></textarea>
+
+<script>
+function openTab(evt, tabName){
+  const tabcontent=document.getElementsByClassName("tabcontent");
+  for(let i=0;i<tabcontent.length;i++) tabcontent[i].style.display="none";
+  const tablinks=document.getElementsByClassName("tablinks");
+  for(let i=0;i<tablinks.length;i++) tablinks[i].classList.remove("active");
+  document.getElementById(tabName).style.display="block";
+  evt.currentTarget.classList.add("active");
+}
+
+function generateSummary(){
+const showAbnormal=document.getElementById('showAbnormal').checked;
+const sections={
+rightEar:[{id:'rCanalClear',text:'canal clear',abnormal:false},{id:'rErythema',text:'erythematous canal',abnormal:true},{id:'rWax',text:'wax/debris/discharge',abnormal:true},{id:'rTMclear',text:'tympanic membrane clear',abnormal:false},{id:'rTMinflamed',text:'tympanic membrane inflamed',abnormal:true},{id:'rMastoidTender',text:'mastoid tenderness present',abnormal:true}],
+leftEar:[{id:'lCanalClear',text:'canal clear',abnormal:false},{id:'lErythema',text:'erythematous canal',abnormal:true},{id:'lWax',text:'wax/debris/discharge',abnormal:true},{id:'lTMclear',text:'tympanic membrane clear',abnormal:false},{id:'lTMinflamed',text:'tympanic membrane inflamed',abnormal:true},{id:'lMastoidTender',text:'mastoid tenderness present',abnormal:true}],
+throat:[{id:'throatNormal',text:'normal looking throat',abnormal:false},{id:'throatInflamed',text:'inflamed throat',abnormal:true},{id:'throatExudate',text:'covered in exudate',abnormal:true},{id:'tonsilsNormal',text:'tonsils normal',abnormal:false},{id:'tonsilsLargeRight',text:'right tonsil large/inflamed',abnormal:true},{id:'tonsilsLargeLeft',text:'left tonsil large/inflamed',abnormal:true},{id:'tonsilsExudateRight',text:'right tonsil exudate',abnormal:true},{id:'tonsilsExudateLeft',text:'left tonsil exudate',abnormal:true},{id:'mouthOpen',text:'able to open mouth fully',abnormal:false},{id:'speakFull',text:'able to speak in full sentences',abnormal:false},{id:'noLN',text:'no cervical lymphadenopathy',abnormal:false}],
+chest:[{id:'noDistress',text:'not in respiratory distress',abnormal:false},{id:'goodAirEntry',text:'good air entry bilaterally',abnormal:false},{id:'noAddedSound',text:'no added sounds',abnormal:false},{id:'wheeze',text:'wheeze present',abnormal:true},{id:'crackles',text:'crackles present',abnormal:true},{id:'cracklesCough',text:'crackles with cough',abnormal:true}]
+};
+
+function buildSummary(items,label){
+const findings=items.filter(item=>document.getElementById(item.id).checked && (!showAbnormal || item.abnormal)).map(f=>f.text);
+return `• ${label}: ${findings.length ? findings.join(', ') : 'normal findings.'}`;
+}
+
+document.getElementById('summary').value=[
+buildSummary(sections.rightEar,'Right ear'),
+buildSummary(sections.leftEar,'Left ear'),
+buildSummary(sections.throat,'Throat'),
+buildSummary(sections.chest,'Chest')
+].join('\n');
+}
+
+function clearAll(){
+document.querySelectorAll('input[type=checkbox]').forEach(cb=>cb.checked=false);
+document.getElementById('summary').value='';
+}
+
+function copySummary(){
+const summary=document.getElementById('summary');
+summary.select();
+document.execCommand('copy');
+alert('Summary copied — ready for EMIS!');
+}
+</script>
+
+</body>
+</html>
