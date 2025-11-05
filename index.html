@@ -3,107 +3,128 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ENT + Chest Summary Generator (Tabbed Compact)</title>
+<title>ENT + Chest + Abdomen Summary Generator</title>
 <style>
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f4f7f9;
-  color: #1f2937;
-  margin: 20px;
-}
-h2 { text-align: center; color: #1e3a8a; margin-bottom: 20px; }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7f9;
+    color: #1f2937;
+    margin: 20px;
+  }
 
-/* Tabs */
-.tab {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 15px;
-}
-.tab button {
-  background-color: #e0e7ff;
-  border: none;
-  padding: 10px 16px;
-  cursor: pointer;
-  font-weight: bold;
-  margin: 0 4px;
-  border-radius: 10px 10px 0 0;
-}
-.tab button.active { background-color: #2563eb; color: white; }
-.tab button:hover { background-color: #c7d2fe; }
+  h2 {
+    text-align: center;
+    color: #1e3a8a;
+    margin-bottom: 20px;
+  }
 
-/* Tab content */
-.tabcontent {
-  display: none;
-  border-radius: 0 10px 10px 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  max-width: 750px;
-  margin: 0 auto 20px auto;
-  padding: 15px;
-}
+  /* Tabs */
+  .tab {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+  }
+  .tab button {
+    background-color: #e0e7ff;
+    border: none;
+    padding: 10px 16px;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 0 4px;
+    border-radius: 10px 10px 0 0;
+    transition: 0.2s;
+  }
+  .tab button.active {
+    background-color: #2563eb;
+    color: white;
+  }
+  .tab button:hover {
+    background-color: #c7d2fe;
+  }
 
-/* Sections colors */
-.ear { background-color: #ecfdf5; border-left: 6px solid #10b981; }
-.throat { background-color: #eef2ff; border-left: 6px solid #6366f1; }
-.chest { background-color: #fff7ed; border-left: 6px solid #f59e0b; }
+  /* Tab content */
+  .tabcontent {
+    display: none;
+    border-radius: 0 10px 10px 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    max-width: 750px;
+    margin: 0 auto 20px auto;
+    padding: 15px;
+  }
 
-/* Options grid */
-.options-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 5px 15px;
-}
+  /* Sections colors */
+  .ear { background-color: #ecfdf5; border-left: 6px solid #10b981; }
+  .throat { background-color: #eef2ff; border-left: 6px solid #6366f1; }
+  .chest { background-color: #fff7ed; border-left: 6px solid #f59e0b; }
+  .abdomen { background-color: #fef6ff; border-left: 6px solid #a855f7; }
 
-label {
-  display: flex;
-  align-items: center;
-  margin: 5px 0;
-}
-input[type=checkbox] {
-  margin-right: 8px;
-  transform: scale(1.2);
-  accent-color: #10b981;
-}
+  /* Options grid */
+  .options-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 5px 15px;
+  }
 
-/* Controls */
-.controls {
-  text-align: center;
-  margin-top: 15px;
-}
-button {
-  padding: 10px 16px;
-  margin: 5px 8px 10px 0;
-  border: none;
-  border-radius: 8px;
-  background-color: #2563eb;
-  color: #fff;
-  font-weight: bold;
-  cursor: pointer;
-}
-button:hover { background-color: #1d4ed8; }
+  label {
+    display: flex;
+    align-items: center;
+    margin: 5px 0;
+  }
 
-#summary {
-  width: 100%;
-  height: 220px;
-  padding: 12px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  font-size: 15px;
-  background-color: #f8fafc;
-  color: #1e3a8a;
-  white-space: pre-wrap;
-  resize: none;
-}
-.toggle { text-align: center; margin-top: 10px; }
+  input[type=checkbox] {
+    margin-right: 8px;
+    transform: scale(1.2);
+    accent-color: #10b981;
+  }
+
+  /* Controls */
+  .controls {
+    text-align: center;
+    margin-top: 15px;
+  }
+
+  button {
+    padding: 10px 16px;
+    margin: 5px 8px 10px 0;
+    border: none;
+    border-radius: 8px;
+    background-color: #2563eb;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+
+  button:hover { background-color: #1d4ed8; }
+
+  #summary {
+    width: 100%;
+    height: 240px;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    background-color: #f8fafc;
+    color: #1e3a8a;
+    white-space: pre-wrap;
+    resize: none;
+  }
+
+  .toggle {
+    text-align: center;
+    margin-top: 10px;
+  }
 </style>
 </head>
 <body>
 
-<h2>ENT + Chest Examination</h2>
+<h2>ENT + Chest + Abdomen Examination</h2>
 
 <div class="tab">
   <button class="tablinks active" onclick="openTab(event,'Ear')">👂 Ear</button>
   <button class="tablinks" onclick="openTab(event,'Throat')">👄 Throat</button>
   <button class="tablinks" onclick="openTab(event,'Chest')">🫁 Chest</button>
+  <button class="tablinks" onclick="openTab(event,'Abdomen')">🫀 Abdomen</button>
 </div>
 
 <!-- Ear Tab -->
@@ -117,6 +138,7 @@ button:hover { background-color: #1d4ed8; }
     <label><input type="checkbox" id="rTMinflamed"> TM inflamed</label>
     <label><input type="checkbox" id="rMastoidTender"> Mastoid tenderness</label>
   </div>
+
   <h3>Left Ear</h3>
   <div class="options-grid">
     <label><input type="checkbox" id="lCanalClear"> Canal clear</label>
@@ -157,60 +179,494 @@ button:hover { background-color: #1d4ed8; }
   </div>
 </div>
 
+<!-- Abdomen Tab -->
+<div id="Abdomen" class="tabcontent abdomen">
+  <div class="options-grid">
+    <label><input type="checkbox" id="abdSoft"> Soft, non-tender</label>
+    <label><input type="checkbox" id="abdMild"> Mild tenderness (all over)</label>
+    <label><input type="checkbox" id="abdPelvic"> Pelvic tenderness</label>
+    <label><input type="checkbox" id="abdNoRenal"> No renal angle tenderness</label>
+    <label><input type="checkbox" id="abdNoGuard"> No guarding</label>
+    <label><input type="checkbox" id="abdNoRigidity"> No rigidity</label>
+  </div>
+</div>
+
 <div class="toggle">
-<label><input type="checkbox" id="showAbnormal"> Show only abnormal findings</label>
+  <label><input type="checkbox" id="showAbnormal"> Show only abnormal findings</label>
 </div>
 
 <div class="controls">
-<button onclick="generateSummary()">Generate Summary</button>
-<button onclick="clearAll()">Clear</button>
-<button onclick="copySummary()">Copy</button>
+  <button onclick="generateSummary()">Generate Summary</button>
+  <button onclick="clearAll()">Clear</button>
+  <button onclick="copySummary()">Copy</button>
 </div>
 
 <textarea id="summary" readonly placeholder="Generated summary will appear here..."></textarea>
 
 <script>
 function openTab(evt, tabName){
-  const tabcontent=document.getElementsByClassName("tabcontent");
-  for(let i=0;i<tabcontent.length;i++) tabcontent[i].style.display="none";
-  const tablinks=document.getElementsByClassName("tablinks");
-  for(let i=0;i<tablinks.length;i++) tablinks[i].classList.remove("active");
-  document.getElementById(tabName).style.display="block";
+  document.querySelectorAll(".tabcontent").forEach(tc => tc.style.display = "none");
+  document.querySelectorAll(".tablinks").forEach(tl => tl.classList.remove("active"));
+  document.getElementById(tabName).style.display = "block";
   evt.currentTarget.classList.add("active");
 }
 
 function generateSummary(){
-const showAbnormal=document.getElementById('showAbnormal').checked;
-const sections={
-rightEar:[{id:'rCanalClear',text:'canal clear',abnormal:false},{id:'rErythema',text:'erythematous canal',abnormal:true},{id:'rWax',text:'wax/debris/discharge',abnormal:true},{id:'rTMclear',text:'tympanic membrane clear',abnormal:false},{id:'rTMinflamed',text:'tympanic membrane inflamed',abnormal:true},{id:'rMastoidTender',text:'mastoid tenderness present',abnormal:true}],
-leftEar:[{id:'lCanalClear',text:'canal clear',abnormal:false},{id:'lErythema',text:'erythematous canal',abnormal:true},{id:'lWax',text:'wax/debris/discharge',abnormal:true},{id:'lTMclear',text:'tympanic membrane clear',abnormal:false},{id:'lTMinflamed',text:'tympanic membrane inflamed',abnormal:true},{id:'lMastoidTender',text:'mastoid tenderness present',abnormal:true}],
-throat:[{id:'throatNormal',text:'normal looking throat',abnormal:false},{id:'throatInflamed',text:'inflamed throat',abnormal:true},{id:'throatExudate',text:'covered in exudate',abnormal:true},{id:'tonsilsNormal',text:'tonsils normal',abnormal:false},{id:'tonsilsLargeRight',text:'right tonsil large/inflamed',abnormal:true},{id:'tonsilsLargeLeft',text:'left tonsil large/inflamed',abnormal:true},{id:'tonsilsExudateRight',text:'right tonsil exudate',abnormal:true},{id:'tonsilsExudateLeft',text:'left tonsil exudate',abnormal:true},{id:'mouthOpen',text:'able to open mouth fully',abnormal:false},{id:'speakFull',text:'able to speak in full sentences',abnormal:false},{id:'noLN',text:'no cervical lymphadenopathy',abnormal:false}],
-chest:[{id:'noDistress',text:'not in respiratory distress',abnormal:false},{id:'goodAirEntry',text:'good air entry bilaterally',abnormal:false},{id:'noAddedSound',text:'no added sounds',abnormal:false},{id:'wheeze',text:'wheeze present',abnormal:true},{id:'crackles',text:'crackles present',abnormal:true},{id:'cracklesCough',text:'crackles with cough',abnormal:true}]
-};
+  const showAbnormal = document.getElementById('showAbnormal').checked;
+  
+  const sections = {
+    rightEar: [
+      {id:'rCanalClear',text:'canal clear',abnormal:false},
+      {id:'rErythema',text:'erythematous canal',abnormal:true},
+      {id:'rWax',text:'wax/debris/discharge',abnormal:true},
+      {id:'rTMclear',text:'tympanic membrane clear',abnormal:false},
+      {id:'rTMinflamed',text:'tympanic membrane inflamed',abnormal:true},
+      {id:'rMastoidTender',text:'mastoid tenderness present',abnormal:true}
+    ],
+    leftEar: [
+      {id:'lCanalClear',text:'canal clear',abnormal:false},
+      {id:'lErythema',text:'erythematous canal',abnormal:true},
+      {id:'lWax',text:'wax/debris/discharge',abnormal:true},
+      {id:'lTMclear',text:'tympanic membrane clear',abnormal:false},
+      {id:'lTMinflamed',text:'tympanic membrane inflamed',abnormal:true},
+      {id:'lMastoidTender',text:'mastoid tenderness present',abnormal:true}
+    ],
+    throat: [
+      {id:'throatNormal',text:'normal looking throat',abnormal:false},
+      {id:'throatInflamed',text:'inflamed throat',abnormal:true},
+      {id:'throatExudate',text:'covered in exudate',abnormal:true},
+      {id:'tonsilsNormal',text:'tonsils normal',abnormal:false},
+      {id:'tonsilsLargeRight',text:'right tonsil large/inflamed',abnormal:true},
+      {id:'tonsilsLargeLeft',text:'left tonsil large/inflamed',abnormal:true},
+      {id:'tonsilsExudateRight',text:'right tonsil exudate',abnormal:true},
+      {id:'tonsilsExudateLeft',text:'left tonsil exudate',abnormal:true},
+      {id:'mouthOpen',text:'able to open mouth fully',abnormal:false},
+      {id:'speakFull',text:'able to speak in full sentences',abnormal:false},
+      {id:'noLN',text:'no cervical lymphadenopathy',abnormal:false}
+    ],
+    chest: [
+      {id:'noDistress',text:'not in respiratory distress',abnormal:false},
+      {id:'goodAirEntry',text:'good air entry bilaterally',abnormal:false},
+      {id:'noAddedSound',text:'no added sounds',abnormal:false},
+      {id:'wheeze',text:'wheeze present',abnormal:true},
+      {id:'crackles',text:'crackles present',abnormal:true},
+      {id:'cracklesCough',text:'crackles with cough',abnormal:true}
+    ],
+    abdomen: [
+      {id:'abdSoft',text:'soft, non-tender',abnormal:false},
+      {id:'abdMild',text:'mild tenderness (all over)',abnormal:true},
+      {id:'abdPelvic',text:'pelvic tenderness',abnormal:true},
+      {id:'abdNoRenal',text:'no renal angle tenderness',abnormal:false},
+      {id:'abdNoGuard',text:'no guarding',abnormal:false},
+      {id:'abdNoRigidity',text:'no rigidity',abnormal:false}
+    ]
+  };
 
-function buildSummary(items,label){
-const findings=items.filter(item=>document.getElementById(item.id).checked && (!showAbnormal || item.abnormal)).map(f=>f.text);
-return `• ${label}: ${findings.length ? findings.join(', ') : 'normal findings.'}`;
-}
+  function buildSummary(items,label){
+    const findings = items
+      .filter(item => document.getElementById(item.id).checked && (!showAbnormal || item.abnormal))
+      .map(f => f.text);
+    return `• ${label}: ${findings.length ? findings.join(', ') : 'normal findings.'}`;
+  }
 
-document.getElementById('summary').value=[
-buildSummary(sections.rightEar,'Right ear'),
-buildSummary(sections.leftEar,'Left ear'),
-buildSummary(sections.throat,'Throat'),
-buildSummary(sections.chest,'Chest')
-].join('\n');
+  document.getElementById('summary').value = [
+    buildSummary(sections.rightEar,'Right ear'),
+    buildSummary(sections.leftEar,'Left ear'),
+    buildSummary(sections.throat,'Throat'),
+    buildSummary(sections.chest,'Chest'),
+    buildSummary(sections.abdomen,'Abdomen')
+  ].join('\n');
 }
 
 function clearAll(){
-document.querySelectorAll('input[type=checkbox]').forEach(cb=>cb.checked=false);
-document.getElementById('summary').value='';
+  document.querySelectorAll('input[type=checkbox]').forEach(cb => cb.checked=false);
+  document.getElementById('summary').value = '';
 }
 
 function copySummary(){
-const summary=document.getElementById('summary');
-summary.select();
-document.execCommand('copy');
-alert('Summary copied — ready for EMIS!');
+  const summary = document.getElementById('summary');
+  summary.select();
+  document.execCommand('copy');
+  alert('Summary copied — ready for EMIS!');
+}
+</script>
+
+</body>
+</html>
+
+
+import React, { useState, useRef } from "react";
+
+// EMIS Otitis Media, Externa, Tonsillitis, Viral Pharyngitis, Sinusitis Summary Generator
+// Tailwind CSS for styling. Single-file React component.
+
+// Define the main App component
+export default function App() {
+  const [otitisMedia, setOtitisMedia] = useState(false);
+  const [otitisExterna, setOtitisExterna] = useState(false);
+  const [tonsillitis, setTonsillitis] = useState(false);
+  const [viralPharyngitis, setViralPharyngitis] = useState(false);
+  const [sinusitis, setSinusitis] = useState(false);
+  const [copyStatus, setCopyStatus] = useState(null); // 'success' or 'failure'
+  const summaryRef = useRef(null); // Ref for the textarea
+
+  // Use a series of if/else statements to ensure only one impression is generated
+  const summary = otitisMedia
+    ? `Impression: Acute otitis media
+Plan: Antibiotic, analgesia
+Safety-net: If symptoms worsen, new symptoms develop, or concerns seek urgent medical advice or return for immediate review
+Red flags (advise immediate review if): high fever, severe or worsening ear pain, reduced responsiveness or drowsiness, persistent vomiting, facial swelling or cellulitis.`
+    : otitisExterna
+    ? `Impression: Acute otitis externa
+Plan: Topical treatment, analgesia, avoid water/ear plugs while treating
+Safety-net: If symptoms worsen, new symptoms develop, or concerns arise seek urgent medical advice or return for immediate review
+Red flags (advise immediate review if): spreading facial or periauricular cellulitis, severe or worsening pain, marked hearing loss, facial weakness, persistent vomiting, systemic features (fever/chills).`
+    : tonsillitis
+    ? `Impression: Acute tonsillitis
+Plan: Analgesia, hydration, review in 48 hours, consider antibiotics if bacterial features present
+Safety-net: If symptoms worsen, new symptoms develop, or concerns arise seek urgent medical advice or return for immediate review
+Red flags (advise immediate review if): severe dysphagia with inability to swallow fluids, drooling, stridor, muffled voice, high fever, neck swelling or airway compromise.`
+    : viralPharyngitis
+    ? `Impression: Viral pharyngitis
+Plan: Analgesia, hydration, supportive care, review if symptoms persist beyond 7 days
+Safety-net: If symptoms worsen, new symptoms develop, or concerns arise seek urgent medical advice or return for immediate review
+Red flags (advise immediate review if): severe sore throat with drooling, difficulty breathing, stridor, muffled voice, high fever, neck swelling, inability to swallow fluids.`
+    : sinusitis
+    ? `Impression: Acute sinusitis
+Plan: Analgesia, nasal decongestants or saline irrigation, hydration, supportive care, delayed antibiotic
+Safety-net: If symptoms worsen, new symptoms develop, or concerns arise seek urgent medical advice or return for immediate review
+Red flags (advise immediate review if): severe facial pain or swelling, periorbital edema, persistent high fever, vision changes, neurological symptoms, inability to tolerate oral intake.`
+    : "Select an impression above to generate the EMIS-friendly consultation summary.";
+
+  const handleCopy = () => {
+    if (summaryRef.current && summary.length > 0) {
+      try {
+        // Select the text in the textarea
+        summaryRef.current.select();
+        // Execute the copy command
+        document.execCommand('copy');
+
+        // Clear selection afterwards for better UX
+        if (window.getSelection) {
+          window.getSelection().removeAllRanges();
+        } else if (document.selection) {
+          document.selection.empty();
+        }
+
+        setCopyStatus('success');
+        setTimeout(() => setCopyStatus(null), 3000);
+      } catch (err) {
+        console.error("Copy failed:", err);
+        setCopyStatus('failure');
+        setTimeout(() => setCopyStatus(null), 5000);
+      }
+    }
+  };
+
+  const handlePrint = () => {
+    if (summary.length > 0) {
+      const printWindow = window.open("", "PRINT", "height=600,width=800");
+      printWindow.document.write(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <title>Print Summary</title>
+          <style>
+            @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+            body { font-family: 'Inter', system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif; padding: 20px; }
+            pre { white-space: pre-wrap; font-size: 14px; line-height: 1.5; }
+          </style>
+        </head>
+        <body>
+          <pre>${summary}</pre>
+        </body>
+        </html>
+      `);
+      printWindow.document.close();
+      printWindow.focus();
+      printWindow.print();
+    }
+  };
+  
+  // Function to reset all state variables
+  const handleClear = () => {
+    setOtitisMedia(false);
+    setOtitisExterna(false);
+    setTonsillitis(false);
+    setViralPharyngitis(false);
+    setSinusitis(false);
+    setCopyStatus(null);
+  };
+
+  // Reusable component for the checkbox/label group
+  const CheckboxGroup = ({ id, label, checked, setter }) => {
+    const handleChange = (e) => {
+      const isChecked = e.target.checked;
+      setter(isChecked);
+      // Implement single-select logic (deselect others)
+      if (isChecked) {
+        if (id !== 'media') setOtitisMedia(false);
+        if (id !== 'externa') setOtitisExterna(false);
+        if (id !== 'tonsillitis') setTonsillitis(false);
+        if (id !== 'pharyngitis') setViralPharyngitis(false);
+        if (id !== 'sinusitis') setSinusitis(false);
+      }
+    };
+
+    return (
+      <label
+        htmlFor={id}
+        className="flex items-center gap-3 p-3 rounded-xl cursor-pointer transition duration-150 ease-in-out border border-gray-200 hover:border-blue-300"
+      >
+        <input
+          id={id}
+          type="checkbox"
+          checked={checked}
+          onChange={handleChange}
+          className="w-5 h-5 rounded-md border-gray-300 text-blue-600 focus:ring-blue-500 transition duration-150 ease-in-out"
+        />
+        <span className="font-medium text-gray-700">{label}</span>
+      </label>
+    );
+  };
+
+  const statusMessage = copyStatus === 'success' ? (
+    <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-xl shadow-md flex items-center gap-2">
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+      Summary successfully copied to clipboard!
+    </div>
+  ) : copyStatus === 'failure' ? (
+    <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-xl shadow-md flex items-center gap-2">
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+      Copy failed. Please select the text and copy manually.
+    </div>
+  ) : null;
+
+  // Determine if any checkbox is currently selected to enable the Clear button
+  const isSelected = otitisMedia || otitisExterna || tonsillitis || viralPharyngitis || sinusitis;
+
+
+  return (
+    <div className="min-h-screen bg-gray-100 flex items-start justify-center p-4 sm:p-6 font-['Inter']">
+      <div className="w-full max-w-3xl bg-white rounded-2xl shadow-xl p-6 md:p-8">
+        <header className="mb-6 border-b pb-4">
+          <h1 className="text-3xl font-extrabold text-gray-800">EMIS Summary Generator</h1>
+          <p className="text-md text-gray-500 mt-1">
+            Quickly generate a concise **Impression, Plan, Safety-net, and Red flags** comment for common upper respiratory and ear conditions.
+          </p>
+          <p className="text-sm text-blue-600 font-medium mt-2">
+            **Action:** Please tick **only one** box below to generate the corresponding template.
+          </p>
+        </header>
+
+        <section className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+          <CheckboxGroup id="media" label="Acute Otitis Media" checked={otitisMedia} setter={setOtitisMedia} />
+          <CheckboxGroup id="externa" label="Acute Otitis Externa" checked={otitisExterna} setter={setOtitisExterna} />
+          <CheckboxGroup id="tonsillitis" label="Acute Tonsillitis" checked={tonsillitis} setter={setTonsillitis} />
+          <CheckboxGroup id="pharyngitis" label="Viral Pharyngitis" checked={viralPharyngitis} setter={setViralPharyngitis} />
+          <CheckboxGroup id="sinusitis" label="Acute Sinusitis" checked={sinusitis} setter={setSinusitis} />
+        </section>
+
+        <section className="space-y-4">
+          <div className="border rounded-xl p-4 bg-gray-50 shadow-inner">
+            <label className="block text-sm font-semibold text-gray-700 mb-2">Generated Clinical Summary</label>
+            <textarea
+              ref={summaryRef}
+              readOnly
+              value={summary}
+              rows={summary.split('\n').length + 1 > 8 ? 12 : 8}
+              className="w-full p-4 rounded-lg resize-none bg-white border border-gray-300 text-gray-800 text-sm focus:ring-blue-500 focus:border-blue-500 transition duration-150"
+              style={{ minHeight: '150px' }}
+            />
+          </div>
+
+          <div className="flex flex-wrap gap-3 items-center">
+            <button
+              onClick={handleCopy}
+              disabled={summary.includes("Select an impression")}
+              className={`px-6 py-3 rounded-xl shadow-md text-sm font-semibold transition duration-200 transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-4 focus:ring-offset-2 focus:ring-blue-300 ${summary.includes("Select an impression") ? "bg-gray-300 text-gray-600 cursor-not-allowed" : "bg-blue-600 text-white hover:bg-blue-700"}`}
+            >
+              Copy to Clipboard
+            </button>
+
+            <button
+              onClick={handlePrint}
+              disabled={summary.includes("Select an impression")}
+              className={`px-6 py-3 rounded-xl shadow-md text-sm font-semibold transition duration-200 transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-4 focus:ring-offset-2 focus:ring-green-300 ${summary.includes("Select an impression") ? "bg-gray-300 text-gray-600 cursor-not-allowed" : "bg-green-600 text-white hover:bg-green-700"}`}
+            >
+              Print Summary
+            </button>
+
+            <button
+              onClick={handleClear}
+              disabled={!isSelected}
+              className={`px-6 py-3 rounded-xl shadow-md text-sm font-semibold transition duration-200 transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-4 focus:ring-offset-2 focus:ring-gray-300 ${isSelected ? "bg-gray-200 text-gray-700 hover:bg-gray-300" : "bg-gray-300 text-gray-600 cursor-not-allowed"}`}
+            >
+              Clear Form
+            </button>
+
+            {statusMessage && (
+              <div className="mt-2 w-full sm:w-auto">
+                {statusMessage}
+              </div>
+            )}
+          </div>
+        </section>
+      </div>
+    </div>
+  );
+}
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skin Examination Summary Generator</title>
+<style>
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f7f9;
+  color: #1f2937;
+  margin: 20px;
+}
+h2 { text-align: center; color: #0ea5e9; margin-bottom: 20px; }
+
+/* Options grid */
+.options-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 5px 15px;
+  margin-bottom: 15px;
+}
+
+label {
+  display: flex;
+  align-items: center;
+  margin: 5px 0;
+}
+input[type=checkbox] {
+  margin-right: 8px;
+  transform: scale(1.2);
+  accent-color: #0ea5e9;
+}
+
+/* Controls */
+.controls {
+  text-align: center;
+  margin-top: 15px;
+}
+button {
+  padding: 10px 16px;
+  margin: 5px 8px 10px 0;
+  border: none;
+  border-radius: 8px;
+  background-color: #0ea5e9;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+}
+button:hover { background-color: #0284c7; }
+
+#summary {
+  width: 100%;
+  height: 300px;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+  background-color: #f0f9ff;
+  color: #0ea5e9;
+  white-space: pre-wrap;
+  resize: none;
+}
+.toggle { text-align: center; margin-bottom: 10px; }
+input[type=text] {
+  width: 140px;
+  margin-left: 5px;
+  padding: 4px 6px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+</style>
+</head>
+<body>
+
+<h2>Skin Examination Summary Generator</h2>
+
+<div class="options-grid">
+  <label><input type="checkbox" id="normalSkin"> Normal skin</label>
+  <label><input type="checkbox" id="eczema"> Eczema / dry red patches</label>
+  <label><input type="checkbox" id="psoriasis"> Psoriasis / plaques with silvery scale</label>
+  <label><input type="checkbox" id="cellulitis"> Cellulitis / tender red patch</label>
+  <label><input type="checkbox" id="urticaria"> Urticaria / itchy wheals</label>
+  <label><input type="checkbox" id="acne"> Acne / papules and pustules</label>
+  <label><input type="checkbox" id="petechiae"> Petechiae / purpura</label>
+  <label>Location: <input type="text" id="skinLocation" placeholder="e.g. trunk, limbs"></label>
+  <label>Symptoms: <input type="text" id="skinSymptoms" placeholder="e.g. pruritus, pain"></label>
+  <label>Severity: <input type="text" id="skinSeverity" placeholder="mild/moderate/severe"></label>
+</div>
+
+<div class="toggle">
+  <label><input type="checkbox" id="showAbnormal"> Show only abnormal findings</label>
+</div>
+
+<div class="controls">
+  <button onclick="generateSummary()">Generate Summary</button>
+  <button onclick="clearAll()">Clear</button>
+  <button onclick="copySummary()">Copy</button>
+</div>
+
+<textarea id="summary" readonly placeholder="Generated summary will appear here..."></textarea>
+
+<script>
+function generateSummary(){
+  const showAbnormal=document.getElementById('showAbnormal').checked;
+  const items=[
+    {id:'normalSkin',text:'skin appears normal',abnormal:false},
+    {id:'eczema',text:'erythematous scaly patches consistent with eczema',abnormal:true},
+    {id:'psoriasis',text:'well-demarcated plaques with silvery scale typical of psoriasis',abnormal:true},
+    {id:'cellulitis',text:'erythematous tender patch suggestive of cellulitis',abnormal:true},
+    {id:'urticaria',text:'pruritic wheals consistent with urticaria',abnormal:true},
+    {id:'acne',text:'inflammatory papules and pustules consistent with acne',abnormal:true},
+    {id:'petechiae',text:'non-blanching red-purple spots concerning for petechiae',abnormal:true}
+  ];
+
+  let findings = items.filter(item=>{
+    if(!document.getElementById(item.id).checked) return false;
+    if(showAbnormal && !item.abnormal) return false;
+    return true;
+  }).map(f=>f.text);
+
+  const loc=document.getElementById('skinLocation').value.trim();
+  const symp=document.getElementById('skinSymptoms').value.trim();
+  const sev=document.getElementById('skinSeverity').value.trim();
+
+  if(findings.length){
+    if(loc) findings[0] += ` on ${loc}`;
+    if(sev) findings[0] = findings[0].replace('consistent', `${sev}, consistent`);
+    if(symp) findings.push(`Associated symptoms: ${symp}`);
+  }
+
+  document.getElementById('summary').value = findings.length ? '• ' + findings.join('\n• ') : '• Normal findings.';
+}
+
+function clearAll(){
+  document.querySelectorAll('input[type=checkbox]').forEach(cb=>cb.checked=false);
+  document.getElementById('skinLocation').value='';
+  document.getElementById('skinSymptoms').value='';
+  document.getElementById('skinSeverity').value='';
+  document.getElementById('summary').value='';
+}
+
+function copySummary(){
+  const summary=document.getElementById('summary');
+  summary.select();
+  document.execCommand('copy');
+  alert('Skin summary copied — ready for EMIS!');
 }
 </script>
 
