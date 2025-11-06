@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>EMIS — Combined Exam & Summary Generator</title>
+<title>EMIS — Combined Exam & Summary Generator (Fixed)</title>
 <style>
   :root{
     --bg:#f8fafc; --card:#ffffff; --muted:#6b7280; --accent:#2563eb; --ok:#10b981; --danger:#ef4444;
@@ -20,37 +20,23 @@
     padding:20px;
   }
 
-  .container{
-    max-width:980px;
-    margin:0 auto;
-  }
-
-  header{
-    text-align:left;
-    margin-bottom:12px;
-  }
-  h1{margin:8px 0; font-size:20px;}
+  .container{max-width:980px;margin:0 auto;}
+  header{text-align:left;margin-bottom:12px;}
+  h1{margin:8px 0;font-size:20px;}
   p.lead{margin:0;color:var(--muted);font-size:13px;}
 
-  /* Tabs */
   .tabs{display:flex;gap:8px;margin:18px 0 12px 0;flex-wrap:wrap;}
-  .tabbtn{
-    background:#eef2ff;border-radius:10px;padding:8px 12px;border:none;cursor:pointer;font-weight:600;color:#1e293b;
-    box-shadow:0 1px 0 rgba(0,0,0,0.03);
-  }
+  .tabbtn{background:#eef2ff;border-radius:10px;padding:8px 12px;border:none;cursor:pointer;font-weight:600;color:#1e293b;box-shadow:0 1px 0 rgba(0,0,0,0.03);}
   .tabbtn.active{background:var(--accent);color:#fff;}
 
-  .card{
-    background:var(--card);border-radius:var(--radius);padding:var(--pad);box-shadow:0 6px 18px rgba(15,23,42,0.06);margin-bottom:14px;
-  }
-
+  .card{background:var(--card);border-radius:var(--radius);padding:var(--pad);box-shadow:0 6px 18px rgba(15,23,42,0.06);margin-bottom:14px;}
   .section-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;}
   .options-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px;}
 
-  label.checkbox{
-    display:flex;gap:8px;align-items:center;padding:8px;border-radius:8px;border:1px solid #eef2ff;background:#fbfdff;cursor:pointer;
-  }
+  label.checkbox{display:flex;gap:8px;align-items:center;padding:8px;border-radius:8px;border:1px solid #eef2ff;background:#fbfdff;cursor:pointer;}
+  label.radio{display:flex;gap:8px;align-items:center;padding:8px;border-radius:8px;border:1px solid #eef2ff;background:#fff;cursor:pointer;}
   input[type=checkbox]{transform:scale(1.1)}
+  input[type=radio]{transform:scale(1.05)}
   .small{font-size:13px;color:var(--muted)}
 
   .controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px;}
@@ -59,7 +45,7 @@
   button.warn{background:var(--danger);color:white;border:none;padding:9px 12px;border-radius:10px;cursor:pointer;}
   button:disabled{opacity:0.55;cursor:not-allowed}
 
-  textarea#summary{width:100%;min-height:160px;border-radius:10px;padding:12px;border:1px solid #e6eefc;background:#fbfdff;font-family:inherit;resize:vertical;white-space:pre-wrap;color:#0f172a}
+  textarea#summary{width:100%;min-height:160px;border-radius:10px;padding:12px;border:1px solid:#e6eefc;background:#fbfdff;font-family:inherit;resize:vertical;white-space:pre-wrap;color:#0f172a}
 
   .muted-line{font-size:13px;color:var(--muted);margin-top:6px}
   .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
@@ -73,7 +59,7 @@
 <body>
   <div class="container">
     <header>
-      <h1>EMIS — Combined Exam & Summary Generator</h1>
+      <h1>EMIS — Combined Exam & Summary Generator (Fixed)</h1>
       <p class="lead">Light, single-file tool — exam findings (ENT/Chest/Abdomen + Skin) and single-select impression templates ready to copy into EMIS.</p>
     </header>
 
@@ -97,7 +83,7 @@
       </div>
 
       <!-- EARS -->
-      <div style="margin-top:12px" class="card" aria-hidden="false">
+      <div style="margin-top:12px" class="card">
         <strong>Ear — Right</strong>
         <div class="options-grid" style="margin-top:8px">
           <label class="checkbox"><input type="checkbox" data-what="re" id="rCanalClear"> Canal clear</label>
@@ -121,7 +107,6 @@
         </div>
       </div>
 
-      <!-- THROAT -->
       <div class="card" style="margin-top:10px">
         <strong>Throat</strong>
         <div class="options-grid" style="margin-top:8px">
@@ -139,7 +124,6 @@
         </div>
       </div>
 
-      <!-- CHEST -->
       <div class="card" style="margin-top:10px">
         <strong>Chest</strong>
         <div class="options-grid" style="margin-top:8px">
@@ -152,7 +136,6 @@
         </div>
       </div>
 
-      <!-- ABDOMEN -->
       <div class="card" style="margin-top:10px">
         <strong>Abdomen</strong>
         <div class="options-grid" style="margin-top:8px">
@@ -178,7 +161,7 @@
           <div class="options-grid">
             <label class="checkbox"><input type="checkbox" id="normalSkin"> Normal skin</label>
             <label class="checkbox"><input type="checkbox" id="eczema"> Eczema / dry red patches</label>
-            <label class="checkbox"><input type="checkbox" id="psoriasis"> Psoriasis / plaques with scale</label>
+            <label class="checkbox" id="lblPs"><input type="checkbox" id="psoriasis"> Psoriasis / plaques with scale</label>
             <label class="checkbox"><input type="checkbox" id="cellulitis"> Cellulitis / tender red patch</label>
             <label class="checkbox"><input type="checkbox" id="urticaria"> Urticaria / itchy wheals</label>
             <label class="checkbox"><input type="checkbox" id="acne"> Acne / papules & pustules</label>
@@ -207,12 +190,12 @@
       </div>
 
       <div style="margin-top:10px" class="options-grid">
-        <label class="checkbox"><input type="radio" name="impression" value="otitisMedia" /> Acute otitis media</label>
-        <label class="checkbox"><input type="radio" name="impression" value="otitisExterna" /> Acute otitis externa</label>
-        <label class="checkbox"><input type="radio" name="impression" value="tonsillitis" /> Acute tonsillitis</label>
-        <label class="checkbox"><input type="radio" name="impression" value="viralPharyngitis" /> Viral pharyngitis</label>
-        <label class="checkbox"><input type="radio" name="impression" value="sinusitis" /> Acute sinusitis</label>
-        <label class="checkbox"><input type="radio" name="impression" value="none" /> No impression / observational</label>
+        <label class="radio"><input type="radio" name="impression" value="otitisMedia" /> Acute otitis media</label>
+        <label class="radio"><input type="radio" name="impression" value="otitisExterna" /> Acute otitis externa</label>
+        <label class="radio"><input type="radio" name="impression" value="tonsillitis" /> Acute tonsillitis</label>
+        <label class="radio"><input type="radio" name="impression" value="viralPharyngitis" /> Viral pharyngitis</label>
+        <label class="radio"><input type="radio" name="impression" value="sinusitis" /> Acute sinusitis</label>
+        <label class="radio"><input type="radio" name="impression" value="none" /> No impression / observational</label>
       </div>
 
       <div class="muted-line" style="margin-top:10px">Templates provided: Impression → Plan → Safety-net → Red flags.</div>
@@ -246,15 +229,15 @@
   </div>
 
 <script>
-  // --- Tab behaviour
+  // --- Basic tab behaviour
   document.querySelectorAll('.tabbtn').forEach(btn=>{
     btn.addEventListener('click', ()=> {
       document.querySelectorAll('.tabbtn').forEach(b=>b.classList.remove('active'));
       btn.classList.add('active');
       const tab = btn.getAttribute('data-tab');
       document.querySelectorAll('.tabpanel').forEach(p=>{
-        p.style.display = p.id === tab ? 'block' : 'none';
-        p.setAttribute('aria-hidden', p.id === tab ? 'false' : 'true');
+        p.style.display = (p.id === tab) ? 'block' : 'none';
+        p.setAttribute('aria-hidden', (p.id === tab) ? 'false' : 'true');
       });
     });
   });
@@ -292,72 +275,75 @@ Safety-net: If symptoms worsen, new symptoms develop, or concerns arise seek urg
 Red flags: severe facial swelling/pain, periorbital oedema, visual changes, persistent high fever, neurological signs.`
   };
 
-  // --- Utility: gather checked items and format sections
-  function getExamFindings(showOnlyAbnormal){
-    const mapping = {
-      // id -> [label, abnormal?]
-      rCanalClear:['canal clear', false],
-      rErythema:['erythematous canal', true],
-      rWax:['wax / debris / discharge', true],
-      rTMclear:['tympanic membrane clear', false],
-      rTMinflamed:['tympanic membrane inflamed', true],
-      rMastoidTender:['mastoid tenderness', true],
+  // --- Collect exam mapping
+  const mapping = {
+    rCanalClear:['canal clear', false],
+    rErythema:['erythematous canal', true],
+    rWax:['wax / debris / discharge', true],
+    rTMclear:['tympanic membrane clear', false],
+    rTMinflamed:['tympanic membrane inflamed', true],
+    rMastoidTender:['mastoid tenderness', true],
 
-      lCanalClear:['canal clear', false],
-      lErythema:['erythematous canal', true],
-      lWax:['wax / debris / discharge', true],
-      lTMclear:['tympanic membrane clear', false],
-      lTMinflamed:['tympanic membrane inflamed', true],
-      lMastoidTender:['mastoid tenderness', true],
+    lCanalClear:['canal clear', false],
+    lErythema:['erythematous canal', true],
+    lWax:['wax / debris / discharge', true],
+    lTMclear:['tympanic membrane clear', false],
+    lTMinflamed:['tympanic membrane inflamed', true],
+    lMastoidTender:['mastoid tenderness', true],
 
-      throatNormal:['normal looking throat', false],
-      throatInflamed:['inflamed throat', true],
-      throatExudate:['covered in exudate', true],
-      tonsilsNormal:['tonsils normal', false],
-      tonsilsLargeRight:['right tonsil large / inflamed', true],
-      tonsilsLargeLeft:['left tonsil large / inflamed', true],
-      tonsilsExudateRight:['right tonsil exudate', true],
-      tonsilsExudateLeft:['left tonsil exudate', true],
-      mouthOpen:['able to open mouth fully', false],
-      speakFull:['able to speak in full sentences', false],
-      noLN:['no cervical lymphadenopathy', false],
+    throatNormal:['normal looking throat', false],
+    throatInflamed:['inflamed throat', true],
+    throatExudate:['covered in exudate', true],
+    tonsilsNormal:['tonsils normal', false],
+    tonsilsLargeRight:['right tonsil large / inflamed', true],
+    tonsilsLargeLeft:['left tonsil large / inflamed', true],
+    tonsilsExudateRight:['right tonsil exudate', true],
+    tonsilsExudateLeft:['left tonsil exudate', true],
+    mouthOpen:['able to open mouth fully', false],
+    speakFull:['able to speak in full sentences', false],
+    noLN:['no cervical lymphadenopathy', false],
 
-      noDistress:['not in respiratory distress', false],
-      goodAirEntry:['good air entry bilaterally', false],
-      noAddedSound:['no added sounds', false],
-      wheeze:['wheeze present', true],
-      crackles:['crackles present', true],
-      cracklesCough:['crackles with cough', true],
+    noDistress:['not in respiratory distress', false],
+    goodAirEntry:['good air entry bilaterally', false],
+    noAddedSound:['no added sounds', false],
+    wheeze:['wheeze present', true],
+    crackles:['crackles present', true],
+    cracklesCough:['crackles with cough', true],
 
-      abdSoft:['soft, non-tender', false],
-      abdMild:['mild tenderness (generalised)', true],
-      abdPelvic:['pelvic tenderness', true],
-      abdNoRenal:['no renal angle tenderness', false],
-      abdNoGuard:['no guarding', false],
-      abdNoRigidity:['no rigidity', false]
-    };
+    abdSoft:['soft, non-tender', false],
+    abdMild:['mild tenderness (generalised)', true],
+    abdPelvic:['pelvic tenderness', true],
+    abdNoRenal:['no renal angle tenderness', false],
+    abdNoGuard:['no guarding', false],
+    abdNoRigidity:['no rigidity', false]
+  };
 
-    function build(sideLabel, ids){
-      const found = [];
-      ids.forEach(id=>{
-        const el = document.getElementById(id);
-        if(!el) return;
-        if(el.checked){
-          const [txt,ab] = mapping[id] || [id,false];
-          if(showOnlyAbnormal && !ab) return;
-          found.push(txt);
-        }
-      });
-      return `${sideLabel}: ${found.length ? found.join(', ') : (showOnlyAbnormal ? '': 'normal findings.')}`;
+  function buildSection(ids, label, showOnlyAbnormal){
+    const found = [];
+    ids.forEach(id=>{
+      const el = document.getElementById(id);
+      if(!el) return;
+      if(el.checked){
+        const [txt,ab] = mapping[id] || [id, false];
+        if(showOnlyAbnormal && !ab) return;
+        found.push(txt);
+      }
+    });
+    if(found.length === 0){
+      return showOnlyAbnormal ? null : `${label}: normal findings.`;
     }
+    return `${label}: ${found.join(', ')}`;
+  }
 
-    const right = build('Right ear', ['rCanalClear','rErythema','rWax','rTMclear','rTMinflamed','rMastoidTender']);
-    const left = build('Left ear', ['lCanalClear','lErythema','lWax','lTMclear','lTMinflamed','lMastoidTender']);
-    const throat = build('Throat', ['throatNormal','throatInflamed','throatExudate','tonsilsNormal','tonsilsLargeRight','tonsilsLargeLeft','tonsilsExudateRight','tonsilsExudateLeft','mouthOpen','speakFull','noLN']);
-    const chest = build('Chest', ['noDistress','goodAirEntry','noAddedSound','wheeze','crackles','cracklesCough']);
-    const abdomen = build('Abdomen', ['abdSoft','abdMild','abdPelvic','abdNoRenal','abdNoGuard','abdNoRigidity']);
-
-    return [right,left,throat,chest,abdomen];
+  function getExamFindings(showOnlyAbnormal){
+    const parts = [];
+    const right = buildSection(['rCanalClear','rErythema','rWax','rTMclear','rTMinflamed','rMastoidTender'],'Right ear', showOnlyAbnormal);
+    const left = buildSection(['lCanalClear','lErythema','lWax','lTMclear','lTMinflamed','lMastoidTender'],'Left ear', showOnlyAbnormal);
+    const throat = buildSection(['throatNormal','throatInflamed','throatExudate','tonsilsNormal','tonsilsLargeRight','tonsilsLargeLeft','tonsilsExudateRight','tonsilsExudateLeft','mouthOpen','speakFull','noLN'],'Throat', showOnlyAbnormal);
+    const chest = buildSection(['noDistress','goodAirEntry','noAddedSound','wheeze','crackles','cracklesCough'],'Chest', showOnlyAbnormal);
+    const abdomen = buildSection(['abdSoft','abdMild','abdPelvic','abdNoRenal','abdNoGuard','abdNoRigidity'],'Abdomen', showOnlyAbnormal);
+    [right,left,throat,chest,abdomen].forEach(s=>{ if(s) parts.push(s); });
+    return parts;
   }
 
   function getSkinFindings(showOnlyAbnormal){
@@ -370,7 +356,7 @@ Red flags: severe facial swelling/pain, periorbital oedema, visual changes, pers
       ['acne','inflammatory papules and pustules consistent with acne', true],
       ['petechiae','non-blanching red-purple spots concerning for petechiae', true]
     ];
-    const found=[];
+    const found = [];
     for(const [id,txt,ab] of items){
       const el = document.getElementById(id);
       if(!el) continue;
@@ -382,14 +368,14 @@ Red flags: severe facial swelling/pain, periorbital oedema, visual changes, pers
     const loc = document.getElementById('skinLocation').value.trim();
     const symp = document.getElementById('skinSymptoms').value.trim();
     const sev = document.getElementById('skinSeverity').value.trim();
-    if(found.length===0){
-      return ['Skin: normal findings.'];
-    } else {
-      const first = found[0] + (loc ? ` on ${loc}` : '') + (sev ? ` (${sev})` : '');
-      const rest = found.slice(1);
-      if(symp) rest.push('Associated symptoms: ' + symp);
-      return ['Skin: ' + [first].concat(rest).join('; ')];
+
+    if(found.length === 0){
+      return showOnlyAbnormal ? [] : ['Skin: normal findings.'];
     }
+    const first = found[0] + (loc ? ` on ${loc}` : '') + (sev ? ` (${sev})` : '');
+    const rest = found.slice(1);
+    if(symp) rest.push('Associated symptoms: ' + symp);
+    return ['Skin: ' + [first].concat(rest).join('; ')];
   }
 
   function getImpressionTemplate(){
@@ -400,80 +386,94 @@ Red flags: severe facial swelling/pain, periorbital oedema, visual changes, pers
     return templates[choice] || '';
   }
 
+  // --- Radio toggle (allow unchecking by clicking again)
+  (function enableRadioToggle(){
+    let lastChecked = null;
+    const radios = document.querySelectorAll('input[type=radio][name="impression"]');
+    radios.forEach(r=>{
+      r.addEventListener('click', function(e){
+        if(lastChecked === this){
+          this.checked = false;
+          lastChecked = null;
+        } else {
+          lastChecked = this;
+        }
+      });
+    });
+  })();
+
   // --- Generate Summary
   document.getElementById('btnGenerate').addEventListener('click', ()=>{
     const showOnlyAbnormal = document.getElementById('globalShowAbnormal').checked;
-    const examLines = getExamFindings(showOnlyAbnormal);
-    const skinLines = getSkinFindings(showOnlyAbnormal);
-    const impression = getImpressionTemplate();
+    const examParts = getExamFindings(showOnlyAbnormal);
+    const skinParts = getSkinFindings(showOnlyAbnormal);
+    const impressionText = getImpressionTemplate();
 
-    // Build final summary
     const parts = [];
 
-    // Include concise headings only if there are abnormal findings or not filtered
-    parts.push('== Examination ==');
-    examLines.forEach(line=>{
-      // If globalShowAbnormal and the line only contains 'normal findings.' then skip
-      if(showOnlyAbnormal && line.toLowerCase().includes('normal findings')) return;
-      parts.push('• ' + line);
-    });
-
-    // Skin
-    parts.push('');
-    parts.push('== Skin ==');
-    skinLines.forEach(line=>{
-      if(showOnlyAbnormal && line.toLowerCase().includes('normal findings')) return;
-      parts.push('• ' + line);
-    });
-
-    // Impression / Plan
-    if(impression){
-      parts.push('');
-      parts.push('== Impression & Plan ==');
-      parts.push(impression);
+    // Examination
+    if(examParts.length){
+      parts.push('== Examination ==');
+      examParts.forEach(line => parts.push('• ' + line));
     }
 
-    // If everything filtered out (e.g. showOnlyAbnormal true and nothing abnormal), give a short default
-    const summaryText = parts.join('\n');
-    const anything = summaryText.replace(/\s+/g,'').length > 0;
-    const finalText = (showOnlyAbnormal && summaryText.indexOf('•')===-1)
-                    ? 'No abnormal findings selected.'
-                    : summaryText;
+    // Skin
+    if(skinParts.length){
+      parts.push('');
+      parts.push('== Skin ==');
+      skinParts.forEach(line => parts.push('• ' + line));
+    }
+
+    // Impression
+    if(impressionText){
+      parts.push('');
+      parts.push('== Impression & Plan ==');
+      parts.push(impressionText);
+    }
+
+    // If nothing included (e.g., filtered out everything)
+    let finalText = parts.join('\n');
+    if(!finalText.trim()){
+      finalText = showOnlyAbnormal ? 'No abnormal findings selected.' : 'No findings recorded.';
+    }
 
     document.getElementById('summary').value = finalText;
-    // Switch to output tab automatically
+
+    // Switch to output tab
     document.querySelectorAll('.tabbtn').forEach(b=>b.classList.remove('active'));
     document.querySelector('[data-tab="output"]').classList.add('active');
     document.querySelectorAll('.tabpanel').forEach(p=>{
-      p.style.display = p.id === 'output' ? 'block' : 'none';
-      p.setAttribute('aria-hidden', p.id === 'output' ? 'false' : 'true');
+      p.style.display = (p.id === 'output') ? 'block' : 'none';
+      p.setAttribute('aria-hidden', (p.id === 'output') ? 'false' : 'true');
     });
   });
 
   // --- Copy to clipboard (modern + fallback)
   document.getElementById('btnCopy').addEventListener('click', async ()=>{
     const txt = document.getElementById('summary').value;
-    if(!txt) { alert('No summary to copy. Generate first.'); return; }
+    if(!txt){
+      alert('No summary to copy. Generate one first.');
+      return;
+    }
     try{
       if(navigator.clipboard && navigator.clipboard.writeText){
         await navigator.clipboard.writeText(txt);
       } else {
-        // fallback for older browsers
         const ta = document.getElementById('summary');
         ta.select();
         document.execCommand('copy');
-        window.getSelection().removeAllRanges();
+        if(window.getSelection) window.getSelection().removeAllRanges();
       }
-      // small visible feedback
-      const orig = document.getElementById('btnCopy').textContent;
-      document.getElementById('btnCopy').textContent = 'Copied ✓';
-      setTimeout(()=> document.getElementById('btnCopy').textContent = orig, 1600);
+      const btn = document.getElementById('btnCopy');
+      const orig = btn.textContent;
+      btn.textContent = 'Copied ✓';
+      setTimeout(()=> btn.textContent = orig, 1400);
     } catch(err){
       alert('Copy failed — please select text and copy manually.');
     }
   });
 
-  // --- Clear all (resets entire form)
+  // --- Clear all
   document.getElementById('btnClear').addEventListener('click', ()=>{
     if(!confirm('Clear all fields and selections?')) return;
     document.querySelectorAll('input[type=checkbox]').forEach(cb=>cb.checked=false);
@@ -495,31 +495,22 @@ Red flags: severe facial swelling/pain, periorbital oedema, visual changes, pers
     w.print();
   });
 
-  function escapeHtml(s){ return s.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;'); }
+  function escapeHtml(s){
+    if(!s) return '';
+    return String(s).replaceAll ? s.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;') : s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
 
-  // --- Helpful: allow clicking a checked radio to uncheck it (toggle behavior)
-  document.querySelectorAll('input[type=radio][name="impression"]').forEach(radio=>{
-    radio.addEventListener('click', function(e){
-      if(this._wasChecked){
-        this.checked = false;
-      }
-      // reset stored flag for all then set for this
-      document.querySelectorAll('input[type=radio][name="impression"]').forEach(r=>r._wasChecked = r.checked);
-    });
-  });
-
-  // --- Simple keyboard shortcut: Ctrl+G to generate
+  // --- Keyboard shortcut Ctrl/Cmd + G to generate
   document.addEventListener('keydown', (e)=>{
     if((e.ctrlKey || e.metaKey) && e.key.toLowerCase()==='g'){
       e.preventDefault(); document.getElementById('btnGenerate').click();
     }
   });
 
-  // --- Accessibility: ensure tab panel initial state
+  // --- Initial tab visibility
   document.querySelectorAll('.tabpanel').forEach((p,i)=> {
     if(i===0){ p.style.display='block'; p.setAttribute('aria-hidden','false'); } else { p.style.display='none'; p.setAttribute('aria-hidden','true'); }
   });
-
 </script>
 </body>
 </html>
